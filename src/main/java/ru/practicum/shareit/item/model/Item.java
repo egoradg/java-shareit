@@ -1,18 +1,18 @@
 package ru.practicum.shareit.item.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.practicum.shareit.item.BookingStatus;
-import ru.practicum.shareit.request.ItemRequest;
 
 /**
  * TODO Sprint add-controllers.
  */
 @Data
+@AllArgsConstructor
 public class Item {
-    private long id;
+    private final Long id;
     private String name;
     private String description;
     private boolean available;
-    private long owner;
-    private ItemRequest request;
+    private final Long owner;
+    private Long request;
 }

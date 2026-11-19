@@ -1,0 +1,66 @@
+package ru.practicum.shareit.item;
+
+import org.springframework.stereotype.Repository;
+import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.item.model.Item;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository
+public class ItemMemoryRepository {
+    private final Map<Long, Item> items = new HashMap<>();
+    private List<Long> deletedIds = new ArrayList<>();
+
+    public Item findById(Long itemId) {
+        if (items.containsKey(itemId))
+            return items.get(itemId);
+        throw new NotFoundException("Вещи с id = " + itemId + " нет");
+    }
+
+    public List<Item> findByUserId(Long userId) {
+        return items.values().stream()
+                .filter(item -> item.getOwner() == userId)
+                .toList();
+    }
+
+    public Item create(Item newItem) {
+        newItem.setId(getIdForCreate());
+        items.put(newItem.getId(), newItem);
+        return newItem;
+    }
+
+    private Long getIdForCreate() {
+        if (deletedIds.isEmpty()) return items.size() + 1L;
+        Long id = deletedIds.getFirst();
+        deletedIds.remove(id);
+        return id;
+    }
+
+    public Item update(Item newItem) {
+        if (!items.containsKey(newItem.getId()))
+            throw new NotFoundException("Пользователя с id = " + newItem.getId() + " нет");
+
+        Item item = items.get(newItem.getId());
+        if (newItem.getName() != null && !newItem.getName().isBlank())
+            item.setName(newItem.getName());
+
+        if (newItem.getDescription() != null && !newItem.getDescription().isBlank())
+            item.setDescription(newItem.getDescription());
+
+        if (newItem.getAvailable() != null) {
+            item.setAvailable(newItem.getAvailable());
+        }
+
+        return item;
+    }
+
+    public void delete(Long userId) {
+        if (!items.containsKey(userId))
+            throw new NotFoundException("Вещи с id = " + userId + " нет");
+
+        items.remove(userId);
+    }
+}

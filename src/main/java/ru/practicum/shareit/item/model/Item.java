@@ -9,10 +9,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Item {
-    private final Long id;
+    private Long id;
     private String name;
     private String description;
-    private boolean available;
-    private final Long owner;
+    private Boolean available;
+    private Long owner;
     private Long request;
 }

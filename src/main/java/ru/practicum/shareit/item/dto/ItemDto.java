@@ -10,11 +10,11 @@ public class ItemDto {
     private Long id;
     private String name;
     private String description;
-    private boolean available;
+    private Boolean available;
     private Long owner;
     private Long request;
 
-    public ItemDto(Long id, String name, String description, boolean available, Long owner, Long request) {
+    public ItemDto(Long id, String name, String description, Boolean available, Long owner, Long request) {
         this.id = id;
         this.name = name;
         this.description = description;

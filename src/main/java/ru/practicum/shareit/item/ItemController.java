@@ -22,12 +22,12 @@ public class ItemController {
         return service.getItemsByUserId(userId);
     }
 
-    @PostMapping
+    @GetMapping
     public ItemDto getItemById(@PathVariable Long itemId) {
         return service.getItemById(itemId);
     }
 
-    @PostMapping
+    @GetMapping
     public List<ItemDto> getItemByText(@RequestParam String text) {
         return service.getItemsByText(text);
     }
@@ -39,7 +39,7 @@ public class ItemController {
 
     @PatchMapping("/{itemId}")
     public ItemDto updateItem(@RequestBody ItemDto item, @PathVariable Long itemId) {
-        return service.addItem(item, itemId);
+        return service.updateItem(item, itemId);
     }
 
     @DeleteMapping("/{itemId}")

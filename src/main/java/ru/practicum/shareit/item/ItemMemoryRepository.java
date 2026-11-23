@@ -1,7 +1,9 @@
 package ru.practicum.shareit.item;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.ArrayList;
@@ -40,9 +42,6 @@ public class ItemMemoryRepository {
     }
 
     public Item update(Item newItem) {
-        if (!items.containsKey(newItem.getId()))
-            throw new NotFoundException("Пользователя с id = " + newItem.getId() + " нет");
-
         Item item = items.get(newItem.getId());
         if (newItem.getName() != null && !newItem.getName().isBlank())
             item.setName(newItem.getName());
@@ -62,5 +61,13 @@ public class ItemMemoryRepository {
             throw new NotFoundException("Вещи с id = " + userId + " нет");
 
         items.remove(userId);
+    }
+
+    public List<Item> findByText(String text) {
+        return items.values().stream()
+                .filter(item -> (item.getName().toUpperCase().contains(text)
+                        || item.getDescription().toUpperCase().contains(text))
+                && item.getAvailable() == true)
+                .toList();
     }
 }

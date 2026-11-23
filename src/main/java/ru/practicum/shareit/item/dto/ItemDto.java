@@ -1,25 +1,34 @@
 package ru.practicum.shareit.item.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.practicum.shareit.ValidationGroups;
 
 /**
  * TODO Sprint add-controllers.
  */
 @Data
+@AllArgsConstructor
 public class ItemDto {
+    @Null(groups = {ValidationGroups.CreateGroup.class, ValidationGroups.UpdateGroup.class})
     private Long id;
-    private String name;
-    private String description;
-    private Boolean available;
-    private Long owner;
-    private Long request;
 
-    public ItemDto(Long id, String name, String description, Boolean available, Long owner, Long request) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.available = available;
-        this.owner = owner;
-        this.request = request;
-    }
+    @NotBlank(groups = ValidationGroups.CreateGroup.class)
+    private String name;
+
+    @NotBlank(groups = ValidationGroups.CreateGroup.class)
+    private String description;
+
+    @NotNull(groups = ValidationGroups.CreateGroup.class)
+    private Boolean available;
+
+    @Positive(groups = {ValidationGroups.CreateGroup.class, ValidationGroups.UpdateGroup.class})
+    private Long owner;
+
+    @Positive(groups = {ValidationGroups.CreateGroup.class, ValidationGroups.UpdateGroup.class})
+    private Long request;
 }

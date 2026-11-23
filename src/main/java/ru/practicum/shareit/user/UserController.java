@@ -1,11 +1,12 @@
 package ru.practicum.shareit.user;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.ValidationGroups;
 
 import java.util.List;
 
@@ -30,12 +31,14 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto addNewUser(@RequestBody @NotNull @Valid UserDto newUser) {
+    public UserDto addNewUser(@RequestBody @NotNull @Validated(ValidationGroups.CreateGroup.class) UserDto newUser) {
         return service.create(newUser);
     }
 
     @PatchMapping("/{userId}")
-    public UserDto updateUser(@PathVariable @Positive Long userId, @RequestBody @NotNull @Valid UserDto newUser) {
+    public UserDto updateUser(@PathVariable @NotNull @Positive Long userId,
+                              @RequestBody @NotNull @Validated(ValidationGroups.UpdateGroup.class) UserDto newUser) {
+        System.out.println(newUser);
         return service.update(userId, newUser);
     }
 

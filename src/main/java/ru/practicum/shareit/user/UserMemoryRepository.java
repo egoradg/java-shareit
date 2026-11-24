@@ -9,7 +9,7 @@ import java.util.*;
 @Repository
 public class UserMemoryRepository {
     private final Map<Long, User> users = new HashMap<>();
-    private List<Long> deletedIds = new ArrayList<>();
+    private final List<Long> deletedIds = new ArrayList<>();
 
     public List<User> findAll() {
         return users.values().stream().toList();
@@ -60,7 +60,7 @@ public class UserMemoryRepository {
     public void delete(Long userId) {
         if (!users.containsKey(userId))
             throw new NotFoundException("Пользователя с id = " + userId + " нет");
-
+        deletedIds.add(userId);
         users.remove(userId);
     }
 

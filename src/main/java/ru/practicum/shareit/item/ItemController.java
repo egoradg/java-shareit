@@ -32,19 +32,21 @@ public class ItemController {
 
     @GetMapping("/search")
     public List<ItemDto> getItemByText(@RequestParam String text) {
-        if(text.isBlank()) return new ArrayList<>();
+        if (text.isBlank()) return new ArrayList<>();
         return service.getItemsByText(text);
     }
 
     @PostMapping
-    public ItemDto addItem(@RequestBody @Validated(ValidationGroups.CreateGroup.class) ItemDto item,
-                           @RequestHeader("X-Sharer-User-Id") Long userId) {
+    public ItemDto addItem(
+            @RequestBody @Validated(ValidationGroups.CreateGroup.class) ItemDto item,
+            @RequestHeader("X-Sharer-User-Id") Long userId) {
         return service.addItem(item, userId);
     }
 
     @PatchMapping("/{itemId}")
-    public ItemDto updateItem(@RequestBody @Validated(ValidationGroups.UpdateGroup.class) ItemDto item,
-                              @PathVariable Long itemId, @RequestHeader("X-Sharer-User-Id") @Positive Long userId) {
+    public ItemDto updateItem(
+            @RequestBody @Validated(ValidationGroups.UpdateGroup.class) ItemDto item,
+            @PathVariable Long itemId, @RequestHeader("X-Sharer-User-Id") @Positive Long userId) {
         return service.updateItem(item, itemId, userId);
     }
 

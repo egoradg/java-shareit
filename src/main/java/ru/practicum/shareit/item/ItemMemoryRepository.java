@@ -14,7 +14,7 @@ import java.util.Map;
 @Repository
 public class ItemMemoryRepository {
     private final Map<Long, Item> items = new HashMap<>();
-    private List<Long> deletedIds = new ArrayList<>();
+    private final List<Long> deletedIds = new ArrayList<>();
 
     public Item findById(Long itemId) {
         if (items.containsKey(itemId))
@@ -56,18 +56,19 @@ public class ItemMemoryRepository {
         return item;
     }
 
-    public void delete(Long userId) {
-        if (!items.containsKey(userId))
-            throw new NotFoundException("Вещи с id = " + userId + " нет");
+    public void delete(Long itemId) {
+        if (!items.containsKey(itemId))
+            throw new NotFoundException("Вещи с id = " + itemId + " нет");
+        deletedIds.add(itemId);
 
-        items.remove(userId);
+        items.remove(itemId);
     }
 
     public List<Item> findByText(String text) {
         return items.values().stream()
                 .filter(item -> (item.getName().toUpperCase().contains(text)
                         || item.getDescription().toUpperCase().contains(text))
-                && item.getAvailable() == true)
+                        && item.getAvailable() == true)
                 .toList();
     }
 }

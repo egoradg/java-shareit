@@ -58,7 +58,7 @@ public class BookingMemoryRepository {
 
     public void delete(Long bookingId) {
         if (!bookings.containsKey(bookingId))
-            throw new NotFoundException("Вещи с id = " + bookingId + " нет");
+            throw new NotFoundException("Бронирования с id = " + bookingId + " нет");
         deletedIds.add(bookingId);
 
         bookings.remove(bookingId);

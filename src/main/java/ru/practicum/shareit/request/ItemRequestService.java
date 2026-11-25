@@ -1,6 +1,5 @@
 package ru.practicum.shareit.request;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 

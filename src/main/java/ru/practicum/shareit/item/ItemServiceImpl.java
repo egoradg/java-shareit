@@ -9,6 +9,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserMemoryRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -45,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
         userRepo.findById(userId);
         Item item = repo.findById(itemId);
         newItem.setId(itemId);
-        if (item.getOwner() != userId)
+        if (!Objects.equals(item.getOwner(), userId))
             throw new BadArgumentException("Только владелец может изменять свою вещь");
         Item updatedItem = repo.update(ItemMapper.toItem(newItem));
         log.info("Изменённая вещь:\n" + updatedItem);

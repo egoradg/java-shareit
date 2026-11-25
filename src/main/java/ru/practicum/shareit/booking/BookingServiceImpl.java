@@ -70,7 +70,7 @@ public class BookingServiceImpl implements BookingService {
         if (userId == oldBooking.getBooker() && oldBooking.getBookingStatus() == BookingStatus.WAITING) {
 
             status = BookingStatus.CANCELED;
-        } else if (item.getOwner() == userId) {
+        } else if (item.getOwner().equals(userId)) {
             if (oldBooking.getBookingStatus() == BookingStatus.WAITING)
                 status = approve ? BookingStatus.APPROVED : BookingStatus.REJECTED;
             if (oldBooking.getBookingStatus() == BookingStatus.APPROVED) {

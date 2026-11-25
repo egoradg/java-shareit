@@ -22,7 +22,7 @@ public class ItemMemoryRepository {
 
     public List<Item> findByUserId(Long userId) {
         return items.values().stream()
-                .filter(item -> item.getOwner() == userId)
+                .filter(item -> item.getOwner().equals(userId))
                 .toList();
     }
 

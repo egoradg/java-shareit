@@ -13,7 +13,7 @@ public interface ItemRequestService {
 
     ItemRequestDto create(ItemRequestDto itemRequestDto);
 
-    ItemRequestDto updateRequest( Long requestId, ItemRequestDto newRequest);
+    ItemRequestDto updateRequest(Long requestId, ItemRequestDto newRequest);
 
     void delete(@Positive Long requestId);
 }

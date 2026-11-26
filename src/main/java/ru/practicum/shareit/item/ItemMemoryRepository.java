@@ -64,8 +64,8 @@ public class ItemMemoryRepository {
 
     public List<Item> findByText(String text) {
         return items.values().stream()
-                .filter(item -> (item.getName().toUpperCase().contains(text)
-                        || item.getDescription().toUpperCase().contains(text))
+                .filter(item -> (item.getName().toUpperCase().contains(text.toUpperCase())
+                        || item.getDescription().toUpperCase().contains(text.toUpperCase()))
                         && item.getAvailable() == true)
                 .toList();
     }

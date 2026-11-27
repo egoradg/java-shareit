@@ -3,6 +3,7 @@ package ru.practicum.shareit.user;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.BadArgumentException;
 import ru.practicum.shareit.item.ItemService;
@@ -43,8 +44,8 @@ public class UserService {
     }
 
     public void delete(@Positive Long userId) {
-        repo.delete(userId);
         List<ItemDto> deletedUserItems = itemService.getItemsByUserId(userId);
+        repo.delete(userId);
         deletedUserItems.forEach(item -> itemService.deleteItem(item.getId()));
     }
 }

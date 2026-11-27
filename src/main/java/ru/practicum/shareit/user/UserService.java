@@ -3,7 +3,6 @@ package ru.practicum.shareit.user;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.BadArgumentException;
 import ru.practicum.shareit.item.ItemService;
